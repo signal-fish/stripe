@@ -2,12 +2,14 @@ import styled from "styled-components";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import hero from "./assets/images/hero.svg";
+import Submenu from "./components/Submenu";
 
 const App = () => {
   return (
     <Container hero={hero}>
       <Navbar />
       <Hero />
+      <Submenu/>
     </Container>
   );
 };

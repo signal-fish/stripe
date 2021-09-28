@@ -4,9 +4,19 @@ import sublinks from "./data";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const [page, setPage] = useState({ page: "", links: [] });
   const [location, setLocation] = useState({});
+  const [columns, setColumns] = useState(1);
+
+  const openSidebar = () => {
+    setIsSidebarOpen(true);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
 
   const openSubmenu = (text, coordinates) => {
     const page = sublinks.find((link) => link.page === text);
@@ -14,6 +24,7 @@ const AppProvider = ({ children }) => {
     setLocation(coordinates);
     setIsSubmenuOpen(true);
   };
+
   const closeSubmenu = () => {
     setIsSubmenuOpen(false);
   };
@@ -21,11 +32,16 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        isSidebarOpen,
+        openSidebar,
+        closeSidebar,
         isSubmenuOpen,
         openSubmenu,
         closeSubmenu,
         page,
         location,
+        columns, 
+        setColumns
       }}
     >
       {children}

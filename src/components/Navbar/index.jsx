@@ -1,9 +1,27 @@
-import styled from "styled-components"
-import logo from '../../assets/images/logo.svg'
-import {FaBars} from 'react-icons/fa'
+import styled from "styled-components";
+import logo from "../../assets/images/logo.svg";
+import { FaBars } from "react-icons/fa";
+import { useGlobalContext } from "../../context";
+
 const Navbar = () => {
+  const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
+
+  const displaySubmenu = (e) => {
+    const page = e.target.textContent;
+    const tempBtn = e.target.getBoundingClientRect();
+    const center = (tempBtn.left + tempBtn.right) / 2;
+    const bottom = tempBtn.bottom - 2;
+    openSubmenu(page, { center, bottom });
+  };
+
+  const handleSubmenu = (e) => {
+    if (!e.target.classList.contains("link-btn")) {
+      closeSubmenu();
+    }
+  };
+
   return (
-    <Container>
+    <Container onMouseOver={handleSubmenu}>
       <Wrapper>
         <Left>
           <Logo src={logo} alt="logo"></Logo>
@@ -13,40 +31,39 @@ const Navbar = () => {
         </Left>
         <Links>
           <Link>
-            <LinkButton>products</LinkButton>
+            <LinkButton className='link-btn' onMouseOver={displaySubmenu}>products</LinkButton>
           </Link>
           <Link>
-            <LinkButton>developers</LinkButton>
+            <LinkButton className='link-btn' onMouseOver={displaySubmenu}>developers</LinkButton>
           </Link>
           <Link>
-            <LinkButton>company</LinkButton>
+            <LinkButton className='link-btn' onMouseOver={displaySubmenu}>company</LinkButton>
           </Link>
         </Links>
         <SignIn>Sign in</SignIn>
       </Wrapper>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
-height: 70px;
-`
+  height: 70px;
+`;
 
 const Wrapper = styled.div`
-height: 100%;
-margin: 0 200px;
-display: grid;
-grid-template-columns: auto 1fr auto;
-align-items: center;
-
-`
+  height: 100%;
+  margin: 0 200px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+`;
 
 const Left = styled.div`
-display: flex;
-align-items: center;
-`
+  display: flex;
+  align-items: center;
+`;
 
-const Logo = styled.img``
+const Logo = styled.img``;
 
 const Button = styled.button`
   background: #000;
@@ -58,30 +75,32 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
-  display: none
-`
+  display: none;
+`;
 
 const Links = styled.ul`
-list-style: none;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 0;
-`
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+`;
 
 const Link = styled.li`
-margin: 0 30px;
-`
+  margin: 0 30px;
+`;
 
 const LinkButton = styled.button`
-font-size: 20px;
-text-transform: capitalize;
-background: transparent;
-color: #fff;
-border: none;
-cursor: pointer;
-`
-  
+  font-size: 20px;
+  text-transform: capitalize;
+  background: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 110px;
+  height: 40px;
+`;
+
 const SignIn = styled.button`
   padding: 5px 15px;
   background: #000;
@@ -89,10 +108,10 @@ const SignIn = styled.button`
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
   &:hover {
     background: gray;
   }
-`
+`;
 
-export default Navbar
+export default Navbar;
