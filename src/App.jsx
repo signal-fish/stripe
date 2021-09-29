@@ -3,13 +3,15 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import hero from "./assets/images/hero.svg";
 import Submenu from "./components/Submenu";
+import Sidebar from "./components/Sidebar";
 
 const App = () => {
   return (
     <Container hero={hero}>
       <Navbar />
+      <Sidebar></Sidebar>
       <Hero />
-      <Submenu/>
+      <Submenu />
     </Container>
   );
 };

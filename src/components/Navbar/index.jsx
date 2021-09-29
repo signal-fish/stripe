@@ -2,6 +2,7 @@ import styled from "styled-components";
 import logo from "../../assets/images/logo.svg";
 import { FaBars } from "react-icons/fa";
 import { useGlobalContext } from "../../context";
+import {tablet, tabletPro, laptop, laptopPro} from '../../responsive'
 
 const Navbar = () => {
   const { openSidebar, openSubmenu, closeSubmenu } = useGlobalContext();
@@ -25,7 +26,7 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Logo src={logo} alt="logo"></Logo>
-          <Button>
+          <Button onClick={openSidebar}>
             <FaBars />
           </Button>
         </Left>
@@ -56,6 +57,22 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
+
+  ${laptopPro({
+    margin: "0 150px",
+  })}
+
+  ${laptop({
+    margin: "0 100px",
+  })}
+
+  ${tabletPro({
+    margin: "0 50px",
+  })}
+
+  ${tablet({
+    margin: "0 20px",
+  })}
 `;
 
 const Left = styled.div`
@@ -76,6 +93,12 @@ const Button = styled.button`
   align-items: center;
   cursor: pointer;
   display: none;
+
+  ${tablet({
+    display: "block",
+    position: "absolute",
+    right: "20px"
+  })}
 `;
 
 const Links = styled.ul`
@@ -84,10 +107,18 @@ const Links = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 0;
+
+  ${tablet({
+    display: "none",
+  })}
 `;
 
 const Link = styled.li`
   margin: 0 30px;
+
+  ${tabletPro({
+    margin: "0 20px"
+  })}
 `;
 
 const LinkButton = styled.button`
@@ -112,6 +143,10 @@ const SignIn = styled.button`
   &:hover {
     background: gray;
   }
+
+  ${tablet({
+    display: "none",
+  })}
 `;
 
 export default Navbar;
